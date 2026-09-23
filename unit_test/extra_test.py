@@ -1,12 +1,16 @@
+from __future__ import annotations
+
 import time
 import urllib.error
 import urllib.request
 from email.message import Message
 from typing import Any
 
-import pytest
-
 from cibuildwheel import extra
+
+TYPE_CHECKING = False
+if TYPE_CHECKING:
+    import pytest
 
 
 def test_github_api_request_waits_for_rate_limit_reset(monkeypatch: pytest.MonkeyPatch) -> None:
