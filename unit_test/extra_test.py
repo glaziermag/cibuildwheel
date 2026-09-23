@@ -20,7 +20,9 @@ def test_github_api_request_waits_for_rate_limit_reset(monkeypatch: pytest.Monke
     def fake_json_request(request: urllib.request.Request) -> dict[str, Any]:
         urls.append(request.full_url)
         if len(urls) == 1:
-            raise urllib.error.HTTPError(request.full_url, 403, "rate limit exceeded", headers, None)
+            raise urllib.error.HTTPError(
+                request.full_url, 403, "rate limit exceeded", headers, None
+            )
         return {"tag_name": "v1"}
 
     monkeypatch.setattr(extra, "_json_request", fake_json_request)
